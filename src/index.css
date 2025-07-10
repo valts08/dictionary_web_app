@@ -1,1 +1,22 @@
-@import 'tailwindcss'
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'Mono';
+    src: url(../src/assets/fonts/inconsolata/Inconsolata-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: 'Sans-Serif';
+    src: url(../src/assets/fonts/inter/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+@font-face {
+    font-family: 'Serif';
+    src: url(../src/assets/fonts/lora/Lora-VariableFont_wght.ttf);
+}
+
+@theme {
+    --font-mono: 'Mono';
+    --font-sans-serif: 'Sans-Serif';
+    --font-sans: 'Serif';
+}
