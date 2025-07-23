@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     fontObj: {
-        activeFont: initialState.fontObj[mono],
+        activeFont: "--font-sans",
         mono: "--font-mono",
         serif: "--font-sans",
         sansSerif: "--font-sans-serif"
