@@ -9,13 +9,13 @@ const DictionarySection = () => {
     const { refetch, isRefetchError, error, data, isRefetching } = useQuery({
         queryKey: ["dictionary"],
         queryFn: async () => {
-            const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`)
+            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`)
             
-            if (!result.hasOwnProperty("word")) {
-                return Promise.reject(new Error(`Couldn't fetch data`))
+            if (!response.ok) {
+                return new Error(`Couldn't fetch data`)
             }
-            console.log(result.json())
-            return result.json()
+
+            return response.json()
         },
         retry: 1,
         staleTime: Infinity,
@@ -29,7 +29,7 @@ const DictionarySection = () => {
             <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => refetch()}/>
         </div>
         {data ? (
-            <div>{data[0].word}</div>
+            <div>{data[0].meanings[0].definitions[0].definition}</div>
         ) : isRefetchError ? (
             <div>RefetchError</div>
         ) : isRefetching ? (
