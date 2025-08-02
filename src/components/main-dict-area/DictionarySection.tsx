@@ -2,12 +2,25 @@ import SearchIcon from '../../assets/images/icon-search.svg'
 import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 
+interface DictionarySearchResultType {
+    license: object,
+    meanings: MeaningsObject[],
+    phonetic: string,
+    phonetics: object[],
+    sourceUrls: object,
+    word: string
+}
+
+type MeaningsObject = {
+    [key: string]: object | string //| MeaningsObject[]
+}
+
 const DictionarySection = () => {
 
     const [searchWord, setSearchWord] = useState("")
 
     const { refetch, isRefetchError, error, data, isRefetching } = useQuery({
-        queryKey: ["dictionary"],
+        queryKey: ["dictionary", searchWord],
         queryFn: async () => {
             const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`)
             
@@ -24,19 +37,44 @@ const DictionarySection = () => {
 
     return (
         <>
-        <div className='flex mt-10 rounded-xl place-content-between bg-black/10'>
-            <input type="text" placeholder='Search for a word...' className='p-3 min-w-8/10 font-bold' onChange={(e) => setSearchWord(e.target.value)} />
-            <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => refetch()}/>
-        </div>
-        {data ? (
-            <div>{data[0].meanings[0].definitions[0].definition}</div>
-        ) : isRefetchError ? (
-            <div>RefetchError</div>
-        ) : isRefetching ? (
-            <div>...Refetching</div>
-        ) : (
-            <div>Not ready yet/Nothing</div>
-        )}
+            <div className='flex mt-10 rounded-xl place-content-between bg-black/10'>
+                <input type="text" placeholder='Search for a word...' className='p-3 min-w-8/10 font-bold' onChange={(e) => setSearchWord(e.target.value)} />
+                <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => refetch()}/>
+            </div>
+            {data ? (
+                <div>
+                    {data && data.map((searchResult: DictionarySearchResultType)  => {
+                        return (
+                            <div className=''>
+                                <div className='flex place-content-between pt-8'>
+                                    <div className='flex flex-col'>
+                                        <h1 className='text-5xl font-bold'>
+                                            {searchResult.word}
+                                        </h1>
+                                        <span>
+                                            {searchResult.phonetic}
+                                        </span>
+                                    </div>
+                                    <button className='border-1'>Audio</button>
+                                </div>
+                                {/* {searchResult.meanings.forEach((meaningObject) => {
+                                    return (
+                                        <div>{meaningObject}</div>
+                                    )
+                                })} */}
+                            </div>
+                        )
+                        
+                    })}
+                    
+                </div>
+            ) : isRefetchError ? (
+                <div>RefetchError</div>
+            ) : isRefetching ? (
+                <div>...Refetching</div>
+            ) : (
+                <div></div>
+            )}
         </>
     )
 }
