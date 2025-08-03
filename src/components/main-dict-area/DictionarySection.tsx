@@ -12,7 +12,13 @@ interface DictionarySearchResultType {
 }
 
 type MeaningsObject = {
-    [key: string]: object | string //| MeaningsObject[]
+    [key: string]: object | string
+}
+
+type DefinitionObject = {
+    antonyms: object,
+    definition: string,
+    synonyms: object
 }
 
 const DictionarySection = () => {
@@ -57,11 +63,23 @@ const DictionarySection = () => {
                                     </div>
                                     <button className='border-1'>Audio</button>
                                 </div>
-                                {/* {searchResult.meanings.forEach((meaningObject) => {
+                                {searchResult.meanings.map((meaning: any) => {
                                     return (
-                                        <div>{meaningObject}</div>
+                                        <div>
+                                            <span>{meaning.partOfSpeech}</span>
+                                            <span className='block'>Meaning:</span>
+                                            <ul>
+                                                {meaning.definitions.map((definition: DefinitionObject) => {
+                                                    return (
+                                                        <div>
+                                                            <li></li>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </div>
                                     )
-                                })} */}
+                                })}
                             </div>
                         )
                         
