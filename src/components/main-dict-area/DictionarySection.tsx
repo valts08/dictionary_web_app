@@ -32,6 +32,10 @@ const DictionarySection = () => {
         queryFn: async () => {
             const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`)
             
+            if (response.status == 404) {
+                return response.json()
+            }
+
             if (!response.ok) {
                 return new Error(`Couldn't fetch data`)
             }
@@ -49,7 +53,15 @@ const DictionarySection = () => {
                 <input type="text" placeholder='Search for a word...' className='p-3 min-w-8/10 font-bold' onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => refetch()}/>
             </div>
-            {data ? (
+            {data?.message ? (
+                <div className='flex flex-col place-items-center-safe mt-[25%]'>
+                    <img src={AudioPlayBtn} alt="sad-emoji" className='max-w-[75px] max-h-[75px]'/>
+                    <span className='text-3xl block font-bold py-5'>{data.title}</span>
+                    <div className='text-wrap text-center'>
+                        {data.message} {data.resolution}
+                    </div>
+                </div>
+            ) : data ? (
                 <div>
                     {data && data.map((searchResult: DictionarySearchResultType, searchResultId: number)  => {
                         return (
@@ -87,7 +99,7 @@ const DictionarySection = () => {
                                             {meaning.synonyms.length ? "Synonyms:" : ""}
                                             {meaning.synonyms.map((synonym: string, synonymId: number) => {
                                                 return (
-                                                    <span className='pl-5 text-purple-700 font-bold' key={synonymId}>{synonym}</span>
+                                                    <span className='pl-5 text-purple-700 font-bold text-wrap' key={synonymId}>{synonym}</span>
                                                 )
                                             })}
                                         </div>
