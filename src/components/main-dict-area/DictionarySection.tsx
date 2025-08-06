@@ -26,8 +26,10 @@ type DefinitionObject = {
 const DictionarySection = () => {
 
     const [searchWord, setSearchWord] = useState("")
+    const [searchBarEmptyStatus, setSearchEmptyBarStatus] = useState(false)
+    const searchInputElement: any = document.getElementById('search-term-input')
 
-    const { refetch, isRefetchError, error, data, isRefetching } = useQuery({
+    const { refetch, isRefetchError, data, isRefetching } = useQuery({
         queryKey: ["dictionary", searchWord],
         queryFn: async () => {
             const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`)
@@ -47,12 +49,28 @@ const DictionarySection = () => {
         enabled: false
     })
 
+    const handleRefetch = () => {
+        if (searchInputElement == null || searchInputElement.value.trim() == "") {
+            setSearchEmptyBarStatus(true)
+            return
+        } else {
+            setSearchEmptyBarStatus(false)
+        }
+        refetch()
+    }
+
+
     return (
         <>
-            <div className='flex mt-10 rounded-xl place-content-between bg-black/10'>
-                <input type="text" placeholder='Search for a word...' className='p-3 min-w-8/10 font-bold' onChange={(e) => setSearchWord(e.target.value)} />
-                <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => refetch()}/>
+            <div className={`flex mt-10 rounded-xl place-content-between bg-black/10 ${searchBarEmptyStatus ? "border-red-600 border-1" : ""}`}>
+                <input id='search-term-input' type="text" placeholder='Search for a word...' className="p-3 min-w-8/10 font-bold" onChange={(e) => setSearchWord(e.target.value)} />
+                <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </div>
+            {searchBarEmptyStatus ? (
+                <span className='text-red-600'>Whoops, can't be empty...</span>
+            ) : (
+                <></>
+            )}
             {data?.message ? (
                 <div className='flex flex-col place-items-center-safe mt-[25%]'>
                     <img src={AudioPlayBtn} alt="sad-emoji" className='max-w-[75px] max-h-[75px]'/>

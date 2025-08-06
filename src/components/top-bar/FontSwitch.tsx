@@ -12,7 +12,7 @@ const FontSwitch = () => {
     const [lightMode, setLightMode] = useState(false)
 
     return (
-        <div className="relative flex place-self-center hover:cursor-pointer pr-3 py-1 border-r-1 border-gray-400/30">
+        <div className="relative flex place-self-center hover:cursor-pointer pr-5 pb-1 border-r-1 border-gray-400/30">
             <div className="flex" onClick={() => setLightMode(prev => !prev)}>
                 <span className="text-nowrap">{fontObj.activeFont.name}</span>
                 <img src={FontChangeArrowIcon} alt="arrow-icon" className="self-center w-[12px] h-[6px] ml-3"/>
