@@ -93,7 +93,7 @@ const DictionarySection = () => {
                                             {searchResult.phonetic}
                                         </span>
                                     </div>
-                                    <button onClick={() => console.log('pressed play')} className='hover:cursor-pointer'>
+                                    <button onClick={() => new Audio(searchResult.phonetics[1].audio).play()} className='hover:cursor-pointer'>
                                         <img src={AudioPlayBtn} alt="pronunciation-play-button" />
                                     </button>
                                 </div>
