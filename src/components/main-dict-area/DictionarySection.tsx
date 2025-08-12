@@ -29,6 +29,8 @@ const DictionarySection = () => {
     const [searchBarEmptyStatus, setSearchEmptyBarStatus] = useState(false)
     const searchInputElement: any = document.getElementById('search-term-input')
 
+    let audioObjects: object = {}
+
     const { refetch, isRefetchError, data, isRefetching } = useQuery({
         queryKey: ["dictionary", searchWord],
         queryFn: async () => {
@@ -57,6 +59,45 @@ const DictionarySection = () => {
             setSearchEmptyBarStatus(false)
         }
         refetch()
+    }
+
+    const gatherSrcAudioHelper = (phoneticsObj: object[]) => {
+        let audioSrcs: HTMLAudioElement[] = []
+
+        phoneticsObj.map(phoneticsItem => {
+            if (phoneticsItem.hasOwnProperty('audio') && phoneticsItem.audio != "") {
+                audioSrcs.push(new Audio(phoneticsItem.audio))
+            }
+        })
+        return audioSrcs
+    }
+
+    const audioFileCyclethrough = ({ word, phonetics }: { word: string, phonetics: object[] }, audioItemId: number) => {
+
+        let cycleCount = 0
+        let cycleCountMax = 0
+
+        if (audioObjects[word] && audioObjects[word][audioItemId]) {
+            cycleCount = audioObjects[word][audioItemId].audioCycle
+            cycleCountMax = audioObjects[word][audioItemId].audioItemLength - 1
+        } else {
+            if (!audioObjects[word]) {
+                audioObjects[word] = {}
+            }
+            audioObjects[word][audioItemId] = {
+                audioSrc: gatherSrcAudioHelper(phonetics),
+                audioItemLength: gatherSrcAudioHelper(phonetics).length,
+                audioCycle: 0,
+            }
+        }
+        
+        if (cycleCount > cycleCountMax) {
+                cycleCount = 0
+                audioObjects[word][audioItemId].audioCycle = 0
+            }
+            
+        audioObjects[word][audioItemId].audioSrc[cycleCount].play()
+        audioObjects[word][audioItemId].audioCycle += 1
     }
 
 
@@ -93,7 +134,7 @@ const DictionarySection = () => {
                                             {searchResult.phonetic}
                                         </span>
                                     </div>
-                                    <button onClick={() => new Audio(searchResult.phonetics[0].audio).play()} className='hover:cursor-pointer'>
+                                    <button onClick={() => audioFileCyclethrough(searchResult, searchResultId)} className='hover:cursor-pointer'>
                                         <img src={AudioPlayBtn} alt="pronunciation-play-button" />
                                     </button>
                                 </div>
