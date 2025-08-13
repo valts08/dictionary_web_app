@@ -1,27 +1,14 @@
 import SearchIcon from '../../assets/images/icon-search.svg'
 import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
+import { 
+    DictionarySearchResultType,  
+    StringObject, 
+    AudioObject 
+} from '../../DictDatatypes'
 import AudioPlayBtn from '../../assets/images/icon-play.svg'
 import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
 
-interface DictionarySearchResultType {
-    license: object,
-    meanings: MeaningsObject[],
-    phonetic: string,
-    phonetics: object[],
-    sourceUrls: string[],
-    word: string
-}
-
-type MeaningsObject = {
-    [key: string]: object | string | DefinitionObject[]
-}
-
-type DefinitionObject = {
-    antonyms: object,
-    definition: string,
-    synonyms: object
-}
 
 const DictionarySection = () => {
 
@@ -29,7 +16,7 @@ const DictionarySection = () => {
     const [searchBarEmptyStatus, setSearchEmptyBarStatus] = useState(false)
     const searchInputElement: any = document.getElementById('search-term-input')
 
-    let audioObjects: object = {}
+    let audioObjects: AudioObject = {}
 
     const { refetch, isRefetchError, data, isRefetching } = useQuery({
         queryKey: ["dictionary", searchWord],
@@ -61,7 +48,7 @@ const DictionarySection = () => {
         refetch()
     }
 
-    const gatherSrcAudioHelper = (phoneticsObj: object[]) => {
+    const gatherSrcAudioHelper = (phoneticsObj: StringObject[]) => {
         let audioSrcs: HTMLAudioElement[] = []
 
         phoneticsObj.map(phoneticsItem => {
@@ -72,13 +59,13 @@ const DictionarySection = () => {
         return audioSrcs
     }
 
-    const audioFileCyclethrough = ({ word, phonetics }: { word: string, phonetics: object[] }, audioItemId: number) => {
+    const audioFileCyclethrough = ({ word, phonetics }: { word: string, phonetics: StringObject[] }, audioItemId: number) => {
 
-        let cycleCount = 0
-        let cycleCountMax = 0
+        let cycleCount: number = 0
+        let cycleCountMax: number = 0
 
         if (audioObjects[word] && audioObjects[word][audioItemId]) {
-            cycleCount = audioObjects[word][audioItemId].audioCycle
+            cycleCount = audioObjects[word][audioItemId].audioCycle;
             cycleCountMax = audioObjects[word][audioItemId].audioItemLength - 1
         } else {
             if (!audioObjects[word]) {
@@ -90,13 +77,15 @@ const DictionarySection = () => {
                 audioCycle: 0,
             }
         }
-        
+
+        console.log(audioObjects, 'AUDIO OBJECTS')
+
         if (cycleCount > cycleCountMax) {
                 cycleCount = 0
                 audioObjects[word][audioItemId].audioCycle = 0
             }
             
-        audioObjects[word][audioItemId].audioSrc[cycleCount].play()
+        audioObjects[word][audioItemId.toString()].audioSrc[cycleCount].play()
         audioObjects[word][audioItemId].audioCycle += 1
     }
 
