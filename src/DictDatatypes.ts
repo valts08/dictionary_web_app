@@ -8,13 +8,17 @@ interface DictionarySearchResultType {
 }
 
 type MeaningsObject = {
-    [key: string]: object | string | DefinitionObject[]
+    antonyms: string[],
+    definitions: DefinitionObject[],
+    partOfSpeech: string,
+    synonyms: string[]
 }
 
 type DefinitionObject = {
-    antonyms: object,
+    antonyms: string[],
     definition: string,
-    synonyms: object
+    synonyms: string[],
+    example: string
 }
 
 type StringObject = {
@@ -41,5 +45,7 @@ type AudioObject = {
 export { 
     DictionarySearchResultType, 
     StringObject, 
+    MeaningsObject,
+    DefinitionObject,
     AudioObject 
 }

@@ -3,7 +3,9 @@ import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 import { 
     DictionarySearchResultType,  
-    StringObject, 
+    StringObject,
+    MeaningsObject,
+    DefinitionObject, 
     AudioObject 
 } from '../../DictDatatypes'
 import AudioPlayBtn from '../../assets/images/icon-play.svg'
@@ -127,13 +129,13 @@ const DictionarySection = () => {
                                         <img src={AudioPlayBtn} alt="pronunciation-play-button" />
                                     </button>
                                 </div>
-                                {searchResult.meanings.map((meaning: any, meaningId: number) => {
+                                {searchResult.meanings.map((meaning: MeaningsObject, meaningId: number) => {
                                     return (
                                         <div key={meaningId}>
                                             <span className='block py-6 font-bold'>{meaning.partOfSpeech}</span>
                                             <span>Meaning:</span>
                                             <ol className='pt-4 pb-10'>
-                                                {meaning.definitions.map((definitionObject: any, definitionId: number) => {
+                                                {meaning.definitions.map((definitionObject: DefinitionObject, definitionId: number) => {
                                                     return (
                                                         <>
                                                             <li key={definitionId} className='py-1'>
