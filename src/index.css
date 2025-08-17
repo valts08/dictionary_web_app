@@ -16,7 +16,20 @@
 }
 
 @theme {
+    /* fonts */
     --font-mono: 'Mono';
     --font-sans-serif: 'Sans-Serif';
     --font-sans: 'Serif';
+
+    /* colors */
+    --color-primary-purple: #A445ED;
+    --color-primary-red: #FF5252;
+
+    --color-primary-grey: #757575;
+    --color-secondary-grey: #e9e9e9;
+    --color-tertiary-grey: #f4f4f4;
+    
+    --color-primary-black: #050505;
+    --color-secondary-black: #1f1f1f;
+    --color-tertiary-black: #2d2d2d;
 }

@@ -94,8 +94,8 @@ const DictionarySection = () => {
 
     return (
         <>
-            <div className={`flex mt-10 rounded-xl place-content-between bg-black/10 ${searchBarEmptyStatus ? "border-red-600 border-1" : ""}`}>
-                <input id='search-term-input' type="text" placeholder='Search for a word...' className="p-3 min-w-8/10 font-bold" onChange={(e) => setSearchWord(e.target.value)} />
+            <div className={`flex mt-10 rounded-xl place-content-between bg-black/10 ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
+                <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold" onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </div>
             {searchBarEmptyStatus ? (
@@ -121,7 +121,7 @@ const DictionarySection = () => {
                                         <h1 className='text-7xl font-bold'>
                                             {searchResult.word}
                                         </h1>
-                                        <span className='pt-5'>
+                                        <span className='pt-5 text-primary-purple'>
                                             {searchResult.phonetic}
                                         </span>
                                     </div>
