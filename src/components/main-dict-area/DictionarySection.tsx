@@ -99,7 +99,7 @@ const DictionarySection = () => {
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </div>
             {searchBarEmptyStatus ? (
-                <span className='text-red-600'>Whoops, can't be empty...</span>
+                <span className='text-primary-red'>Whoops, can't be empty...</span>
             ) : (
                 <></>
             )}
@@ -132,36 +132,42 @@ const DictionarySection = () => {
                                 {searchResult.meanings.map((meaning: MeaningsObject, meaningId: number) => {
                                     return (
                                         <div key={meaningId}>
-                                            <span className='block py-6 font-bold'>{meaning.partOfSpeech}</span>
-                                            <span>Meaning:</span>
+                                            <div className='flex py-6'>
+                                                <span className='font-bold italic'>{meaning.partOfSpeech}</span>
+                                                <div className='flex-2 pt-[0.75rem] ml-5 w-100 border-b-1 border-secondary-grey h-[50%]'></div>
+                                            </div>
+                                            <span className='text-primary-grey'>Meaning:</span>
                                             <ol className='pt-4 pb-10'>
                                                 {meaning.definitions.map((definitionObject: DefinitionObject, definitionId: number) => {
                                                     return (
                                                         <>
                                                             <li key={definitionId} className='py-1'>
                                                                 {`${definitionObject.definition}`}
-                                                                <span className='text-red-500 block'>{definitionObject.example}</span>
+                                                                {definitionObject.example && <span className='text-primary-grey block'>"{definitionObject.example}"</span>}
                                                             </li>
                                                         </>
                                                     )
                                                 })}
                                             </ol>
-                                            {meaning.synonyms.length ? "Synonyms:" : ""}
-                                            {meaning.synonyms.map((synonym: string, synonymId: number) => {
-                                                return (
-                                                    <span className='pl-5 text-purple-700 font-bold text-wrap' key={synonymId}>{synonym}</span>
-                                                )
-                                            })}
+                                            <div className='pb-5'>
+                                                {meaning.synonyms.length ? <span className='text-primary-grey'>Synonyms</span> : ""}
+                                                {meaning.synonyms.map((synonym: string, synonymId: number) => {
+                                                    return (
+                                                        <span className='pl-5 text-primary-purple font-bold text-wrap hover:cursor-pointer hover:underline-offset-2 hover:underline hover:decoration-primary-purple' key={synonymId}>{synonym}</span>
+                                                    )
+                                                })}
+                                            </div>
                                         </div>
                                     )
                                 })}
+                                <div className='border-t-1 border-secondary-grey pb-5'></div>
                                 {searchResult.sourceUrls.length ? "Source:" : ""}
                                 {searchResult.sourceUrls.map((url: string, urlId: number) => {
                                     return (
                                         <>
                                             <a href={url} className='pl-5' key={urlId}>
                                                 {url}
-                                                <img src={OpenLinkNewWindow} alt="open-link-newtab" className='inline max-w-[12px] max-h-[12px]'/>
+                                                <img src={OpenLinkNewWindow} alt="open-link-newtab" className='inline max-w-[12px] max-h-[12px] ml-2 mb-1'/>
                                             </a>
                                         </>
                                     )
