@@ -94,8 +94,8 @@ const DictionarySection = () => {
 
     return (
         <>
-            <div className={`flex mt-10 rounded-xl place-content-between bg-black/10 ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
-                <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold" onChange={(e) => setSearchWord(e.target.value)} />
+            <div className={`flex mt-10 rounded-xl place-content-between bg-secondary-purple ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
+                <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold outline-0" onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </div>
             {searchBarEmptyStatus ? (
@@ -137,7 +137,7 @@ const DictionarySection = () => {
                                                 <div className='flex-2 pt-[0.75rem] ml-5 w-100 border-b-1 border-secondary-grey h-[50%]'></div>
                                             </div>
                                             <span className='text-primary-grey'>Meaning:</span>
-                                            <ol className='pt-4 pb-10'>
+                                            <ol className='list-disc pt-4 pb-10 ml-9'>
                                                 {meaning.definitions.map((definitionObject: DefinitionObject, definitionId: number) => {
                                                     return (
                                                         <>
