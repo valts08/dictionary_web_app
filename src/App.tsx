@@ -11,12 +11,14 @@ function App() {
   const { fontObj, isLightTheme } = useAppSelector(state => state.toggles)
 
   return (
-    <div className={`md:max-w-7/12 md:mx-auto max-w-12/12 mx-5 mt-10 ${fontObj.activeFont.font} `}>
-      <TopBar/>
-      <div className='mt-8'>
-        <QueryClientProvider client={queryClient}>
-          <DictionarySection />
-        </QueryClientProvider>
+    <div className={`${isLightTheme ? "" : "bg-black text-white"}`}>
+      <div className={`md:max-w-7/12 md:mx-auto max-w-12/12 mx-5 pt-10 ${fontObj.activeFont.font}`}>
+        <TopBar/>
+        <div className='mt-8'>
+          <QueryClientProvider client={queryClient}>
+            <DictionarySection />
+          </QueryClientProvider>
+        </div>
       </div>
     </div>
   )

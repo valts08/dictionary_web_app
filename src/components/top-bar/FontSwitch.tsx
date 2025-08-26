@@ -6,11 +6,8 @@ import { switchFont } from "../../store/toggle_slice/toggleSlice"
 
 const FontSwitch = () => {
 
-    const { fontObj } = useAppSelector(state => state.toggles)
+    const { fontObj, isLightTheme } = useAppSelector(state => state.toggles)
     const dispatch = useAppDispatch()
-
-    // const [lightMode, setLightMode] = useState(false)
-    // for when I implement dark/light theme switching
 
     const [modalOpen, setModalOpen] = useState(false)
 
@@ -26,7 +23,7 @@ const FontSwitch = () => {
                 <img src={FontChangeArrowIcon} alt="arrow-icon" className="self-center w-[12px] h-[6px] ml-3"/>
             </div>
                 {modalOpen && createPortal(
-                    <div className="absolute top-[10%] right-[20%] sm:right-[16%] md:right-[33%] lg:right-[26.5%] border-0 rounded-lg shadow-xl h-[140px] w-[183px] px-5 flex flex-col justify-evenly font-bold bg-white">
+                    <div className={`absolute flex flex-col justify-evenly top-[10%] right-[20%] sm:right-[16%] md:right-[33%] lg:right-[26.5%] h-[140px] w-[183px] px-5 rounded-lg border-0 font-bold shadow-xl ${isLightTheme ? "bg-white text-black" : "bg-custom-two-black shadow-primary-purple text-white"}`}>
                         <div className="font-sans-serif cursor-pointer hover:text-primary-purple" onClick={() => handleDispatch({ name: "Sans Serif", font: "font-sans-serif"})}>Sans Serif</div>
                         <div className="font-mono cursor-pointer hover:text-primary-purple" onClick={() => handleDispatch({ name: "Mono", font: "font-mono"})}>Mono</div>
                         <div className="font-sans cursor-pointer hover:text-primary-purple" onClick={() => handleDispatch({ name: "Sans", font: "font-sans"})}>Sans</div>

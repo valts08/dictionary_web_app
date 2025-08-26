@@ -4,6 +4,7 @@ import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
 import ConfusedEmoji from '../../assets/images/confused-emoji.png'
 import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
+import { useAppSelector } from '../../hooks/storeHooks'
 import { 
     DictionarySearchResultType,  
     StringObject,
@@ -17,6 +18,7 @@ const DictionarySection = () => {
 
     const [searchWord, setSearchWord] = useState("")
     const [searchBarEmptyStatus, setSearchEmptyBarStatus] = useState(false)
+    const { isLightTheme } = useAppSelector(state => state.toggles)
     const searchInputElement: any = document.getElementById('search-term-input')
 
     let audioObjects: AudioObject = {}
@@ -94,7 +96,7 @@ const DictionarySection = () => {
 
     return (
         <>
-            <div className={`flex mt-10 rounded-xl place-content-between bg-secondary-purple ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
+            <div className={`flex mt-10 rounded-xl place-content-between ${isLightTheme ? "bg-secondary-purple" : "bg-custom-two-black"} ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
                 <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold outline-0" onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </div>
@@ -134,7 +136,7 @@ const DictionarySection = () => {
                                         <div key={meaningId}>
                                             <div className='flex py-6'>
                                                 <span className='font-bold italic'>{meaning.partOfSpeech}</span>
-                                                <div className='flex-2 pt-[0.75rem] ml-5 w-100 border-b-1 border-secondary-grey h-[50%]'></div>
+                                                <div className={`flex-2 pt-[0.75rem] ml-5 w-100 border-b-1 ${isLightTheme ? "border-secondary-grey" : "border-custom-four-black"} h-[50%]`}></div>
                                             </div>
                                             <span className='text-primary-grey'>Meaning:</span>
                                             <ol className='list-disc pt-4 pb-10 ml-9 marker:text-primary-purple'>
@@ -160,7 +162,7 @@ const DictionarySection = () => {
                                         </div>
                                     )
                                 })}
-                                <div className='border-t-1 border-secondary-grey pb-5'></div>
+                                <div className={`border-t-1 pb-5 ${isLightTheme ? "border-secondary-grey" : "border-custom-four-black"}`}></div>
                                 {searchResult.sourceUrls.length ? "Source:" : ""}
                                 {searchResult.sourceUrls.map((url: string, urlId: number) => {
                                     return (

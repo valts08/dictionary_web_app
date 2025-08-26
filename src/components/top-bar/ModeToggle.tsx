@@ -8,7 +8,6 @@ const ModeToggle = () => {
     const dispatch = useAppDispatch()
     const { isLightTheme } = useAppSelector(state => state.toggles)
 
-    console.log("Light theme", isLightTheme)
 
     return (
         <div className="flex place-items-center pl-3">
