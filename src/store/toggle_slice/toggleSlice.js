@@ -27,17 +27,13 @@ const toggleSlice = createSlice({
     initialState,
     reducers: {
         switchFont: (state, action) => {
-            // logic to switch font based on passed payload
             state.fontObj.activeFont = { name: action.payload.name, font: action.payload.font}
         },
-        getTheme: () => {
-            // logic to get light or dark theme
-        },
-        toggleTheme: () => {
-            // logic to toggle between light n dark theme
+        toggleTheme: (state) => {
+            state.isLightTheme = !state.isLightTheme
         }
     }
 })
 
-export const { switchFont, getTheme, toggleTheme } = toggleSlice.actions;
+export const { switchFont, toggleTheme } = toggleSlice.actions;
 export default toggleSlice.reducer;

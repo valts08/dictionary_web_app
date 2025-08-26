@@ -8,10 +8,10 @@ const queryClient = new QueryClient()
 
 function App() {
 
-  const { fontObj } = useAppSelector(state => state.toggles)
+  const { fontObj, isLightTheme } = useAppSelector(state => state.toggles)
 
   return (
-    <div className={`md:max-w-7/12 md:mx-auto max-w-12/12 mx-5 mt-10 ${fontObj.activeFont.font}`}>
+    <div className={`md:max-w-7/12 md:mx-auto max-w-12/12 mx-5 mt-10 ${fontObj.activeFont.font} `}>
       <TopBar/>
       <div className='mt-8'>
         <QueryClientProvider client={queryClient}>

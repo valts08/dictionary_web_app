@@ -13,14 +13,11 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
     width: 14,
     height: 14,
     margin: 2,
+    color: 'white',
   },
-  '& .MuiSwitch-colorSecondary': {
-    color: '#757575'
-
-  },
-  '& .MuiButtonBase-root:hover': {
-    boxShadow: 'none'
-
+  '& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track': {
+    backgroundColor: '#A445ED',
+    opacity: 100,
   }
 }));
 
