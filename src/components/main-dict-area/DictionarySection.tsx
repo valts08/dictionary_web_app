@@ -1,4 +1,7 @@
 import SearchIcon from '../../assets/images/icon-search.svg'
+import AudioPlayBtn from '../../assets/images/icon-play.svg'
+import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
+import ConfusedEmoji from '../../assets/images/confused-emoji.png'
 import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 import { 
@@ -8,8 +11,6 @@ import {
     DefinitionObject, 
     AudioObject 
 } from '../../DictDatatypes'
-import AudioPlayBtn from '../../assets/images/icon-play.svg'
-import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
 
 
 const DictionarySection = () => {
@@ -80,7 +81,6 @@ const DictionarySection = () => {
             }
         }
 
-        console.log(audioObjects, 'AUDIO OBJECTS')
 
         if (cycleCount > cycleCountMax) {
                 cycleCount = 0
@@ -105,7 +105,7 @@ const DictionarySection = () => {
             )}
             {data?.message ? (
                 <div className='flex flex-col place-items-center-safe mt-[25%]'>
-                    <img src={AudioPlayBtn} alt="sad-emoji" className='max-w-[75px] max-h-[75px]'/>
+                    <img src={ConfusedEmoji} alt="confused-emoji" className='max-w-[75px] max-h-[75px]'/>
                     <span className='text-3xl block font-bold py-5'>{data.title}</span>
                     <div className='text-wrap text-center'>
                         {data.message} {data.resolution}
@@ -137,7 +137,7 @@ const DictionarySection = () => {
                                                 <div className='flex-2 pt-[0.75rem] ml-5 w-100 border-b-1 border-secondary-grey h-[50%]'></div>
                                             </div>
                                             <span className='text-primary-grey'>Meaning:</span>
-                                            <ol className='list-disc pt-4 pb-10 ml-9'>
+                                            <ol className='list-disc pt-4 pb-10 ml-9 marker:text-primary-purple'>
                                                 {meaning.definitions.map((definitionObject: DefinitionObject, definitionId: number) => {
                                                     return (
                                                         <>
