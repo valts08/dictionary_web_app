@@ -2,6 +2,7 @@ import SearchIcon from '../../assets/images/icon-search.svg'
 import AudioPlayBtn from '../../assets/images/icon-play.svg'
 import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
 import ConfusedEmoji from '../../assets/images/confused-emoji.png'
+import { motion } from 'motion/react'
 import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 import { useAppSelector } from '../../hooks/storeHooks'
@@ -96,10 +97,23 @@ const DictionarySection = () => {
 
     return (
         <>
-            <div className={`flex mt-10 rounded-xl place-content-between ${isLightTheme ? "bg-secondary-purple" : "bg-custom-two-black"} ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-1 hover:border-primary-purple`}>
+            <motion.div 
+                className={`flex mt-10 rounded-xl place-content-between ${isLightTheme ? "bg-secondary-purple" : "bg-custom-two-black"} ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-primary-purple`}
+                initial={{ border: "solid 0px", borderColor: "#FFFFFF" }}
+                whileHover={{ 
+                    border: "solid 1px",
+                    borderColor: "#A445ED",
+                    transition: { ease: "easeIn", duration: .1} 
+                }}
+                // whileFocus={{ 
+                //     border: 'solid 1px',
+                //     transition: { ease: "easeIn", duration: .1} 
+                // }}
+                // focus not working. need to fix
+                >
                 <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold outline-0" onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
-            </div>
+            </motion.div>
             {searchBarEmptyStatus ? (
                 <span className='text-primary-red'>Whoops, can't be empty...</span>
             ) : (
