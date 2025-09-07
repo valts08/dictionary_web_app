@@ -11,7 +11,7 @@ function App() {
   const { fontObj, isLightTheme } = useAppSelector(state => state.toggles)
 
   return (
-    <div className={`${isLightTheme ? "" : "bg-black text-white"}`}>
+    <div className={`${isLightTheme ? "" : "bg-black text-white"} min-h-[100vh]`}>
       <div className={`md:max-w-7/12 md:mx-auto max-w-12/12 mx-5 pt-10 ${fontObj.activeFont.font}`}>
         <TopBar/>
         <div className='mt-8'>
