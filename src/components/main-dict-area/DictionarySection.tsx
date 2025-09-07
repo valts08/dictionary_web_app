@@ -94,24 +94,18 @@ const DictionarySection = () => {
         audioObjects[word][audioItemId].audioCycle += 1
     }
 
-
     return (
         <>
             <motion.div 
                 className={`flex mt-10 rounded-xl place-content-between ${isLightTheme ? "bg-secondary-purple" : "bg-custom-two-black"} ${searchBarEmptyStatus ? "border-primary-red border-1" : ""} hover:border-primary-purple`}
-                initial={{ border: "solid 0px", borderColor: "#FFFFFF" }}
+                initial={{ border: "solid 0px", borderColor: `${ isLightTheme ? "#FFFFFF" :"#000000"}` }}
                 whileHover={{ 
                     border: "solid 1px",
                     borderColor: "#A445ED",
                     transition: { ease: "easeIn", duration: .1} 
                 }}
-                // whileFocus={{ 
-                //     border: 'solid 1px',
-                //     transition: { ease: "easeIn", duration: .1} 
-                // }}
-                // focus not working. need to fix
                 >
-                <input id='search-term-input' type="text" placeholder='Search for any word...' className="p-3 min-w-8/10 font-bold outline-0" onChange={(e) => setSearchWord(e.target.value)} />
+                <input id='search-term-input' type="text" placeholder='Search for any word...' className={`p-3 min-w-8/10 font-bold outline-0 ${isLightTheme ? "" : "text-white"}`} onChange={(e) => setSearchWord(e.target.value)} />
                 <img src={SearchIcon} alt="search-icon" className='pr-4 cursor-pointer' onClick={() => handleRefetch()}/>
             </motion.div>
             {searchBarEmptyStatus ? (
@@ -120,15 +114,24 @@ const DictionarySection = () => {
                 <></>
             )}
             {data?.message ? (
-                <div className='flex flex-col place-items-center-safe mt-[25%]'>
+                <motion.div 
+                    className='flex flex-col place-items-center-safe mt-[25%]'
+                    initial={{ opacity: 0, scale: 0 }} 
+                    animate={{ opacity: 1, scale: 1 }} 
+                    transition={{ duration: .3 }}
+                >
                     <img src={ConfusedEmoji} alt="confused-emoji" className='max-w-[75px] max-h-[75px]'/>
                     <span className='text-3xl block font-bold py-5'>{data.title}</span>
                     <div className='text-wrap text-center'>
                         {data.message} {data.resolution}
                     </div>
-                </div>
+                </motion.div>
             ) : data ? (
-                <div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0 }} 
+                    animate={{ opacity: 1, scale: 1 }} 
+                    transition={{ duration: .1 }}
+                >
                     {data && data.map((searchResult: DictionarySearchResultType, searchResultId: number)  => {
                         return (
                             <div className=''>
@@ -191,7 +194,7 @@ const DictionarySection = () => {
                             </div>
                         )
                     })}
-                </div>
+                </motion.div>
             ) : isRefetchError ? (
                 <div>RefetchError</div>
             ) : isRefetching ? (
