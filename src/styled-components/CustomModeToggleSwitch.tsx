@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Switch } from "@mui/material";
 
-const CustomSwitch = styled(Switch)(({ theme }) => ({
+const CustomSwitch = styled(Switch)(({ }) => ({
   padding: 8,
   '& .MuiSwitch-track': {
     borderRadius: 22 / 2,

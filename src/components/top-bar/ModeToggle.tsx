@@ -6,8 +6,6 @@ import { toggleTheme } from '../../store/toggle_slice/toggleSlice';
 const ModeToggle = () => {
 
     const dispatch = useAppDispatch()
-    const { isLightTheme } = useAppSelector(state => state.toggles)
-
 
     return (
         <div className="flex place-items-center pl-3">
