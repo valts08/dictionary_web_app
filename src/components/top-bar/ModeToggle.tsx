@@ -1,6 +1,6 @@
 import MoonIcon from '../../assets/images/icon-moon.svg'
 import CustomModeToggleSwitch from '../../styled-components/CustomModeToggleSwitch';
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { useAppDispatch } from '../../hooks/storeHooks';
 import { toggleTheme } from '../../store/toggle_slice/toggleSlice';
 
 const ModeToggle = () => {
