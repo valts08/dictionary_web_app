@@ -35,3 +35,11 @@
     --color-custom-three-black: #2d2d2d;
     --color-custom-four-black: #3a3a3a;
 }
+
+#audio-play-btn:hover #audio-circle {
+    opacity: 100%;
+}
+
+#audio-play-btn:hover #audio-triangle {
+    fill: #FFFFFF;
+}

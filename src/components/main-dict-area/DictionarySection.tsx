@@ -1,5 +1,5 @@
 import SearchIcon from '../../assets/images/icon-search.svg'
-import AudioPlayBtn from '../../assets/images/icon-play.svg'
+import "./../../index.css"
 import OpenLinkNewWindow from '../../assets/images/icon-new-window.svg'
 import ConfusedEmoji from '../../assets/images/confused-emoji.png'
 import { motion } from 'motion/react'
@@ -145,7 +145,12 @@ const DictionarySection = () => {
                                         </span>
                                     </div>
                                     <button onClick={() => audioFileCyclethrough(searchResult, searchResultId)} className='hover:cursor-pointer'>
-                                        <img src={AudioPlayBtn} alt="pronunciation-play-button" />
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='75' height='75' viewBox='0 0 75 75'>
+                                            <g id="audio-play-btn" fill='#A445ED' fill-rule='evenodd'>
+                                                <circle id='audio-circle' cx='37.5' cy='37.5' r='37.5' opacity='.25'/>
+                                                <path id='audio-triangle' d='M29 27v21l21-10.5z'/>
+                                            </g>
+                                        </svg>
                                     </button>
                                 </div>
                                 {searchResult.meanings.map((meaning: MeaningsObject, meaningId: number) => {
