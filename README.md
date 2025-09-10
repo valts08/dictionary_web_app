@@ -32,7 +32,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Frontend Mentor](https://www.frontendmentor.io/solutions/dictionary-web-app-made-with-react-and-tailwind-Av6S6MWtnL)
 - Live Site URL: [Dicionary Web App](https://valts08.github.io/dictionary_web_app/)
 
 ## My process
